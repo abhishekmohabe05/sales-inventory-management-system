@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+<h2>📊 Reports Dashboard</h2>
+<p style="margin-bottom:20px;">Overview of stock and sales</p>
+
+<!-- STOCK REPORT -->
+<div style="margin-bottom:40px;">
+    <h3>📦 Stock Report</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for product in products %}
+            <tr class="{% if product.stock_quantity < 5 %}low-stock{% endif %}">
+                <td>{{ loop.index }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.stock_quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- SALES REPORT -->
+<div>
+    <h3>💰 Sales Report</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Total Amount (₹)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for sale in sales %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ sale.date }}</td>
+                <td>₹ {{ sale.total_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

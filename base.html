@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title (ONLY ONE BLOCK HERE) -->
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>My App</h2>
+    <a href="{{ url_for('dashboard.dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('product.products') }}">📦 Products</a>
+    <a href="{{ url_for('sales.sales') }}">💰 Sales</a>
+    <a href="{{ url_for('report.reports') }}">📊 Reports</a>
+    <a href="{{ url_for('auth.logout') }}">🚪 Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <!-- ✅ FIX: use self.title() instead of block -->
+        <h3>{{ self.title() }}</h3>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Page Content -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

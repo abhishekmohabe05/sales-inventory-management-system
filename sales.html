@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Sales{% endblock %}
+
+{% block content %}
+
+<h2>💰 Sales Management</h2>
+<p style="margin-bottom:20px;">Record a new sale</p>
+
+<div style="max-width:500px;">
+
+<form method="POST">
+
+    <!-- Product Selection -->
+    <label for="product">Select Product</label>
+    <select name="product_id" id="product" required>
+        {% for product in products %}
+            <option value="{{ product.id }}">
+                {{ product.name }} (Stock: {{ product.stock_quantity }}, ₹{{ product.price }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <!-- Quantity -->
+    <label for="quantity" style="margin-top:15px; display:block;">Quantity</label>
+    <input type="number" name="quantity" id="quantity" min="1" required>
+
+    <!-- Submit -->
+    <button type="submit">✅ Complete Sale</button>
+
+</form>
+
+</div>
+
+{% endblock %}
